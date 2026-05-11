@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
-#define list std::vector<unsigned short>
+#include <array>
+
 // class Entity {
 //     public:
 //         list x;
@@ -21,16 +22,25 @@
 
 /* U like dis?? >:) fat struct go brr */
 
-struct Entities {
-    list x;
-    list y;
-    list size;
-    list max_accel;
-    list fov;
-    list energy_capacity;
+struct EntitiesVector { // dynamic array
+    std::vector<int> x;
+    std::vector<int> y;
+    std::vector<int> size;
+    std::vector<float> max_accel;
+    std::vector<float> fov;
+    std::vector<float> energy_capacity;
+};
+// OR
+struct EntitiesArray { // statically allocate max possible size
+    std::array<int, (1 << 16)> x;
+    std::array<int, (1 << 16)> y;
+    std::array<int, (1 << 16)> size;
+    std::array<float, (1 << 16)> max_accel;
+    std::array<float, (1 << 16)> fov;
+    std::array<float, (1 << 16)> energy_capacity;
 };
 
 int main() {
-    Entities* entities = new(Entities);
-    delete(entities);
+    // Entities* entities = new(Entities);
+    // delete(entities);
 }
