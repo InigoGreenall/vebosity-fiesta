@@ -11,6 +11,7 @@ extern "C" {
 
 void frame_drawer(void* pixel_buffer) {
     Olivec_Canvas oc = olivec_canvas((uint32_t*) pixel_buffer, WDITH, HEIGHT, WDITH);
+    olivec_fill(oc, 0xFFFFFFFF);
 }
 
 int main() {
