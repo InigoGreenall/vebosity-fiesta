@@ -1,15 +1,15 @@
-OBJECTS = main.o dtypes.o
+OBJECTS = main.o softwarerender.o
 FLAGS = -Wall -g
 EXE_NAME = main
-LIBS = ./testing-include
+LIB_DIR = ./testing-include
 
 all: $(EXE_NAME)
 
-$(EXE_NAME): $(OBJECTS) $(LIBS)/olive.o
-	g++ $(FLAGS) $^ -o $(EXE_NAME) $(LIBS)/libwlclient.a $(LIBS)/libwayland-client.so.0.24.0
+$(EXE_NAME): $(OBJECTS) $(LIB_DIR)/olive.o
+	g++ $(FLAGS) $^ -o $(EXE_NAME) $(LIB_DIR)/libwlclient.a -lwayland-client
 
-olive.o: $(LIBS)/olive.c
-	cc $(FLAGS) -c $< -o $(LIBS)/$@
+olive.o: $(LIB_DIR)/olive.c
+	cc $(FLAGS) -c $< -o $(LIB_DIR)/$@
 
 %.o: %.cpp %.h
 	g++ $(FLAGS) -c $< -o $@

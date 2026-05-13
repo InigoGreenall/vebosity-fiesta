@@ -1,24 +1,21 @@
-#include <cstdint>
-#include "dtypes.h"
-#define OLIVEC_IMPLEMENTATION
+#include "main.hpp"
+#include "dtypes.hpp"
+#include "softwarerender.hpp"
+#include <array>
 extern "C" {
-    #include "testing-include/olive.c"
     #include "testing-include/client.h"
 }
 
-#define WDITH 1280
-#define HEIGHT 720
-
-void frame_drawer(void* pixel_buffer) {
-    Olivec_Canvas oc = olivec_canvas((uint32_t*) pixel_buffer, WDITH, HEIGHT, WDITH);
-    olivec_fill(oc, 0xFFFFFFFF);
-}
+unsigned short num_entities;
+std::array<Entity*, MAX_ENTITIES> entities;
 
 int main() {
     struct state_t* state = init(WDITH, HEIGHT);
-
     install_frame_drawer(state, frame_drawer);
+    while (dispatch_events(state)) {
 
-    while (dispatch_events(state));
+        // TODO: event loop
+
+    }
     return 0;
 }
