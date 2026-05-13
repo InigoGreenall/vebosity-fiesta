@@ -1,3 +1,8 @@
+#ifndef DTYPES_HPP
+#define DTYPES_HPP
+
+#include <vector>
+
 class Entity {
     public:
         int x;
@@ -7,13 +12,15 @@ class Entity {
         float max_accel;
         float energy_capacity;
 		
-		float veloX;
-		float veloY;
-		float accelX;
-		float accelY;
+		float velo_mag;
+		float velo_dir;
+		float accel_mag;
+		float accel_dir;
 		
-        Entity();
+        Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity);
         ~Entity();
 		
-		void updateVelocity();
+		void update_velocity();
 };
+
+#endif
