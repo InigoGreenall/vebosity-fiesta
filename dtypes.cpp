@@ -1,4 +1,5 @@
-#include "dtypes.h"
+#include "dtypes.hpp"
+#include <cmath>
 
 Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity) :
 	x(x),
@@ -7,19 +8,15 @@ Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_
 	fov(fov),
 	max_accel(max_accel),
 	energy_capacity(energy_capacity),
-	veloX(0);
-	veloY(0);
-	accelX(0);
-	accelY(0);
+	velo_mag(0),
+	velo_dir(0),
+	accel_mag(0),
+	accel_dir(0)
  {}
 
 Entity::~Entity() {}
 
 void Entity::update_velocity() {
-	veloX += accelX;
-	veloY += accelY;
 	
-	float mag = std::sqrt(pow(veloX,2), pow(veloY,2));
-	
-	mag -= DRAG; //universal fluid drag, needs implementing
+	// mag -= DRAG; universal fluid drag, needs implementing
 }
