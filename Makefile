@@ -1,4 +1,4 @@
-OBJECTS = main.o softwarerender.o
+OBJECTS = main.o softwarerender.o dtypes.o
 FLAGS = -Wall -g
 EXE_NAME = main
 LIB_DIR = ./testing-include

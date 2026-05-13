@@ -12,6 +12,9 @@ std::array<Entity*, MAX_ENTITIES> entities;
 int main() {
     struct state_t* state = init(WDITH, HEIGHT);
     install_frame_drawer(state, frame_drawer);
+
+    // TODO: do program setup
+
     while (dispatch_events(state)) {
 
         // TODO: event loop
