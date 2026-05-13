@@ -1,10 +1,13 @@
 #include "main.hpp"
 #include "dtypes.hpp"
 #include "softwarerender.hpp"
+#include <array>
 extern "C" {
     #include "testing-include/client.h"
 }
 
+unsigned short num_entities;
+std::array<Entity*, MAX_ENTITIES> entities;
 
 int main() {
     struct state_t* state = init(WDITH, HEIGHT);

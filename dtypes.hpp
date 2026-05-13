@@ -1,5 +1,3 @@
-#include <vector>
-
 class Entity {
     public:
         int x;
@@ -16,7 +14,6 @@ class Entity {
 		
         Entity();
         ~Entity();
-        void draw_entity(void* pixel_buffer, int arr_width, int arr_height);
 		
 		void updateVelocity();
 };

@@ -1,4 +1,4 @@
-#include "dtypes.h"
+#include "dtypes.hpp"
 
 Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity) :
 	x(x),
