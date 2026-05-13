@@ -16,6 +16,7 @@ class Entity {
 		
         Entity();
         ~Entity();
+        void draw_entity(void* pixel_buffer, int arr_width, int arr_height);
 		
 		void updateVelocity();
 };
