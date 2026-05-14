@@ -1,6 +1,6 @@
-#ifndef SOFTWARERENDER_H
-#define SOFTWARERENDER_H
+#ifndef SOFTWARERENDER_HPP
+#define SOFTWARERENDER_HPP
 
 void frame_drawer(void* pixel_buffer);
 
-#endif // SOFTWARERENDER_H
+#endif // SOFTWARERENDER_H))

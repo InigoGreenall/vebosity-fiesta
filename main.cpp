@@ -6,19 +6,23 @@ extern "C" {
     #include "testing-include/client.h"
 }
 
-unsigned short num_entities;
-std::array<Entity*, MAX_ENTITIES> entities;
+EntityMap* entity_map;
 
 int main() {
     struct state_t* state = init(WDITH, HEIGHT);
     install_frame_drawer(state, frame_drawer);
 
     // TODO: do program setup
+    entity_map = new EntityMap;
+    entity_map->entities.push_back(new Entity(200, 200, 100, 0, 0, 0));
 
     while (dispatch_events(state)) {
 
         // TODO: event loop
 
+        entity_map->entities[0]->x += 1;
+
+        request_new_frame(state);
     }
     return 0;
 }
