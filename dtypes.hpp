@@ -23,4 +23,14 @@ class Entity {
 		void update_velocity();
 };
 
+class EntityMap {
+    public:
+		EntityMap();
+        ~EntityMap();
+
+        std::vector<Entity*> entities;
+
+        void do_tick();
+};
+
 #endif
