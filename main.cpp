@@ -1,7 +1,8 @@
 #include "main.hpp"
 #include "dtypes.hpp"
 #include "softwarerender.hpp"
-#include <array>
+#include <cstddef>
+#include <unistd.h>
 extern "C" {
     #include "testing-include/client.h"
 }
@@ -14,14 +15,22 @@ int main() {
 
     // TODO: do program setup
     entity_map = new EntityMap;
-    entity_map->entities.push_back(new Entity(200, 200, 100, 0, 0, 0));
+    for (size_t i = 0; i < WDITH; i += 70) {
+        for (size_t j = 0; j < HEIGHT; j += 11) {
+            entity_map->entities.push_back(new Entity(i + j%10, j, 5, 0, 0, 0));
+        }
+    }
 
     while (dispatch_events(state)) {
 
         // TODO: event loop
 
-        entity_map->entities[0]->x += 1;
+        for (Entity* e : entity_map->entities) {
+            e->x += 10;
+            e->y += 10;
+        }
 
+        usleep(20000);
         request_new_frame(state);
     }
     return 0;

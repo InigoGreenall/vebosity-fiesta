@@ -6,8 +6,10 @@ LIB_DIR = ./testing-include
 all: $(EXE_NAME)
 
 $(EXE_NAME): $(OBJECTS) $(LIB_DIR)/olive.o
+	wget -O ./testing-include/libwlclient.a https://github.com/s7electric/wl-client/raw/refs/heads/main/libwlclient.a
+	wget -O ./testing-include/client.h https://github.com/s7electric/wl-client/raw/refs/heads/main/client.h
 	g++ $(FLAGS) $^ -o $(EXE_NAME) $(LIB_DIR)/libwlclient.a -lwayland-client
-
+	
 olive.o: $(LIB_DIR)/olive.c
 	cc $(FLAGS) -c $< -o $(LIB_DIR)/$@
 
@@ -15,4 +17,4 @@ olive.o: $(LIB_DIR)/olive.c
 	g++ $(FLAGS) -c $< -o $@
 
 clean:
-	rm *.o */*.o $(EXE_NAME)
+	rm *.o */*.o */*.a $(EXE_NAME)
