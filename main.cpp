@@ -9,7 +9,7 @@ extern "C" {
 EntityMap* entity_map;
 
 int main() {
-    struct state_t* state = init(WDITH, HEIGHT);
+    struct state_t* state = init(WIDTH, HEIGHT);
     install_frame_drawer(state, frame_drawer);
 
     // TODO: do program setup

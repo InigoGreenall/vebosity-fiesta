@@ -1,6 +1,31 @@
 #include "dtypes.hpp"
+#include "main.hpp"
 #include <cmath>
 #include <vector>
+
+Vec2::Vec2(float x, float y) :
+	x(x),
+	y(y)
+{}
+
+Vec2::Vec2() :
+	x(0),
+	y(0)
+{}
+
+Vec2 Vec2::operator+=(const Vec2& v) {
+	this->x += v.x;
+	this->y += v.y;
+	return *this;
+}
+
+Vec2 Vec2::operator+(const Vec2& v) const {
+	return Vec2(x+v.x, y+v.y);
+}
+
+Vec2 Vec2::operator*(float f) const {
+	return Vec2(x*f, y*f);
+}
 
 //######################################################
 // Entity
@@ -11,17 +36,27 @@ Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_
 	fov(fov),
 	max_accel(max_accel),
 	energy_capacity(energy_capacity),
-	velo_mag(0),
-	velo_dir(0),
-	accel_mag(0),
-	accel_dir(0)
+	velocity(0,0),
+	acceleration(0,0)
  {}
+
+
+// default constructor for testing
+Entity::Entity() :
+	x(WIDTH/2),
+	y(HEIGHT/2),
+	size(5),
+	fov(30),
+	max_accel(20),
+	energy_capacity(200),
+	velocity(0,0),
+	acceleration(0,0)
+{}
 
 Entity::~Entity() {}
 
 void Entity::update_velocity() {
-	
-	// mag -= DRAG; universal fluid drag, needs implementing
+
 }
 
 
