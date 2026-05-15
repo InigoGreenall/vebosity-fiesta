@@ -27,6 +27,21 @@ Vec2 Vec2::operator*(float f) const {
 	return Vec2(x*f, y*f);
 }
 
+float Vec2::length() const {
+	return std::sqrt(x*x + y*y);
+}
+
+Vec2 Vec2::normalise() const {
+	float mag = length();
+
+	if(mag == 0) {
+		return Vec2(0,0);
+	} else {
+		return Vec2(x/mag, y/mag);
+	}
+
+}
+
 //######################################################
 // Entity
 Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity) :
@@ -56,7 +71,14 @@ Entity::Entity() :
 Entity::~Entity() {}
 
 void Entity::update_velocity() {
+	velocity += acceleration;
 
+	float mag = velocity.length();
+	float drag = pow(mag,2)*DRAG_COEFF*size;
+
+	mag -= drag;
+	Vec2 dir = velocity.normalise();
+	velocity = dir*mag;
 }
 
 
