@@ -3,7 +3,7 @@
 #include "softwarerender.hpp"
 #include <array>
 extern "C" {
-    #include "testing-include/client.h"
+    #include "testing-include/wlclient.h"
 }
 
 EntityMap* entity_map;
