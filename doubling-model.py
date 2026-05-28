@@ -11,7 +11,8 @@ class Model(nn.Module):
         self.to_out = nn.Linear(l1, out_features)
 
     def forward(self, x):
-        x = self.activ_func(self.to_layer1(x))
+        # x = self.activ_func(self.to_layer1(x))
+        x = self.to_layer1(x)
         x = self.to_out(x)
         return x
 
