@@ -84,15 +84,64 @@ void Entity::update_velocity() {
 
 //######################################################
 // EntityMap
-EntityMap::EntityMap() {
-	
-}
+EntityMap::EntityMap() {}
 
 
 void EntityMap::do_tick() {
-	// 1. All entities make decisions via neural network
-	
-	// 2. Move all entities according to the decisions
+	// 1. Handle Collisions
 
-	// 3. Check for eating, etc.
+	// 2. Run ML Nets
+
+	// 3. Update values from Nets
+
+	// 4. Update positions
+}
+
+void EntityMap::update_collision_grid() {
+	for (std::vector<Entity*>& v : collision_grid) {
+		v.clear();
+	}
+
+	for(Entity* e : entities) {
+		collision_grid.at((e->x / 8)+10*(e->y / 8)).push_back(e);
+	}
+}
+
+void EntityMap::check_collisions() {
+	for (std::vector<Entity*>& v : collision_grid) {
+		for (int i = 0; i < v.size(); i++) {
+			for (int j = i+1; j < v.size(); j++) {
+				Entity* e1 = v.at(i);
+				Entity* e2 = v.at(j);
+
+				if (std::abs(e1->x - e2->x) < (e1->size + e2->size) && std::abs(e1->y - e2->y) < (e1->size + e2->size)) {
+					handle_collision(e1, e2);
+				}
+			}
+		}
+	}
+}
+void EntityMap::handle_collision(Entity* e1, Entity* e2) {	
+	// find normal vector between the entities
+	Vec2 d(e2->x - e1->x, e2->y - e1->y);
+	float dist = d.length();
+	Vec2 normal = d.normalise();
+
+	// relative velocity along the normal
+	float vel_norm = (e1->velocity.x - e2->velocity.x) * normal.x + (e1->velocity.y - e2->velocity.y) * normal.y;
+
+	// prevent triggering collision if entities are moving apart (e.g. collision already occured on previous tick)
+	if (vel_norm > 0) {
+		return;
+	}
+
+	// impulse
+	// -(1 + restitution)*vel_norm; resititution is 1 for elastic collision
+	float j = -2*vel_norm / (1/e1->size + 1/e2->size);
+
+	Vec2 I = normal * j;
+
+	//theres some complicated signage here so it it completely breaks after a single collision, this will be why.
+	e1->velocity += I * (1/e1->size);
+	e2->velocity += I * (-1/e2->size);
 }

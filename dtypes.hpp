@@ -2,6 +2,7 @@
 #define DTYPES_HPP
 
 #include <vector>
+#include <array>
 #include <cmath>
 
 struct Vec2 {
@@ -44,8 +45,12 @@ class EntityMap {
         ~EntityMap();
 
         std::vector<Entity*> entities;
+        std::array<std::vector<Entity*>, 64> collision_grid; //divided into 64 subsections
 
         void do_tick();
+        void update_collision_grid();
+        void check_collisions();
+        void handle_collision(Entity* e1, Entity* e2);
 };
 
 #endif
