@@ -1,9 +1,10 @@
 #ifndef DTYPES_HPP
 #define DTYPES_HPP
 
+#define DRAG_COEFF 0.0002159 //0.47 (sphere drag coefficient) * 3/8 * 0.001225 (fluid density) 
+
 #include <vector>
 #include <array>
-#include <cmath>
 
 struct Vec2 {
     float x, y;

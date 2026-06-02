@@ -74,7 +74,7 @@ void Entity::update_velocity() {
 	velocity += acceleration;
 
 	float mag = velocity.length();
-	float drag = pow(mag,2)*DRAG_COEFF*size;
+	float drag = pow(mag,2)*DRAG_COEFF/(float)size; // density == 1
 
 	mag -= drag;
 	Vec2 dir = velocity.normalise();
@@ -90,7 +90,7 @@ EntityMap::EntityMap() {}
 void EntityMap::do_tick() {
 	// 1. Handle Collisions
 
-	// 2. Run ML Nets
+	// 2. Run ML Nets (modify acceleration instance variable based on decision)
 
 	// 3. Update values from Nets
 
@@ -137,11 +137,11 @@ void EntityMap::handle_collision(Entity* e1, Entity* e2) {
 
 	// impulse
 	// -(1 + restitution)*vel_norm; resititution is 1 for elastic collision
-	float j = -2*vel_norm / (1/e1->size + 1/e2->size);
+	float j = -2*vel_norm / (1.0/e1->size + 1.0/e2->size);
 
 	Vec2 I = normal * j;
 
-	//theres some complicated signage here so it it completely breaks after a single collision, this will be why.
-	e1->velocity += I * (1/e1->size);
-	e2->velocity += I * (-1/e2->size);
+	//theres some complicated signage here so if it completely breaks after a single collision, this will be why.
+	e1->velocity += I * (1.0/e1->size);
+	e2->velocity += I * (-1.0/e2->size);
 }
