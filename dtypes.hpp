@@ -1,8 +1,10 @@
 #ifndef DTYPES_HPP
 #define DTYPES_HPP
 
+#define DRAG_COEFF 0.0002159 //0.47 (sphere drag coefficient) * 3/8 * 0.001225 (fluid density) 
+
 #include <vector>
-#include <cmath>
+#include <array>
 
 struct Vec2 {
     float x, y;
@@ -12,6 +14,9 @@ struct Vec2 {
     Vec2 operator+=(const Vec2& v);
     Vec2 operator+(const Vec2& v) const;
     Vec2 operator*(float f) const;
+
+    float length() const;
+    Vec2 normalise() const;
 };
 
 
@@ -41,8 +46,12 @@ class EntityMap {
         ~EntityMap();
 
         std::vector<Entity*> entities;
+        std::array<std::vector<Entity*>, 64> collision_grid; //divided into 64 subsections
 
         void do_tick();
+        void update_collision_grid();
+        void check_collisions();
+        void handle_collision(Entity* e1, Entity* e2);
 };
 
 #endif
