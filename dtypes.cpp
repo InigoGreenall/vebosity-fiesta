@@ -89,12 +89,27 @@ EntityMap::EntityMap() {}
 
 void EntityMap::do_tick() {
 	// 1. Handle Collisions
+		// TODO: Boundary collisions
+		// TODO: Handle eating
 
-	// 2. Run ML Nets (modify acceleration instance variable based on decision)
+	// 2. Update FOV raycasts
+		// TODO: Entity::raycasts (std::Array<float, N>)
+		// TODO: Entity::update_raycasts()
+	
+	// 3. Run ML Nets (generate "acceleration")
+		// TODO: install libtorch
+		// TODO: copy model.py into cpp
+		// TODO: Vec2 Entity::call_model()
+			// 
+	
+	// 4. Update values from Nets
+		// a. update velocity based on acceleration
 
-	// 3. Update values from Nets
+		// TODO: 
+	
+	// 5. Update positions
+		// TODO: void EntityMap::update_positions()
 
-	// 4. Update positions
 }
 
 void EntityMap::update_collision_grid() {
