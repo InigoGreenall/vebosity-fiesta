@@ -1,5 +1,5 @@
-#include "dtypes.hpp"
 #include "main.hpp"
+#include "dtypes.hpp"
 #include <cmath>
 #include <vector>
 
@@ -79,6 +79,10 @@ void Entity::update_velocity() {
 	mag -= drag;
 	Vec2 dir = velocity.normalise();
 	velocity = dir*mag;
+}
+
+Vec2 Entity::query_model() {
+	// TODO
 }
 
 

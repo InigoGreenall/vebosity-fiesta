@@ -38,6 +38,7 @@ class Entity {
         ~Entity();
 		
 		void update_velocity();
+        Vec2 query_model();
 };
 
 class EntityMap {
