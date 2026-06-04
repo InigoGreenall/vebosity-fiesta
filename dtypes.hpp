@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <array>
+#include "model.hpp"
 
 struct Vec2 {
     float x, y;
@@ -31,8 +32,10 @@ class Entity {
 		
 		Vec2 velocity;
         Vec2 acceleration;
+
+        Net model;
 		
-        Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity);
+        Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity, Net model);
         Entity();
 
         ~Entity();
