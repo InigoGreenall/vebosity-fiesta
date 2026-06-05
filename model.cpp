@@ -27,7 +27,6 @@ torch::Tensor Net::forward(torch::Tensor x) {
 std::vector<float> Net::make_prediction(std::vector<float> input) {
     torch::Tensor t_input = torch::tensor(input).clone().to(device);
     torch::Tensor t_output = forward(t_input);
-    t_output.contiguous();
     return std::vector<float>(
         {t_output.index({0}).item<float>(), t_output.index({1}).item<float>()}
     );
