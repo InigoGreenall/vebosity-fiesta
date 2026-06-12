@@ -1,5 +1,5 @@
-#include "dtypes.hpp"
 #include "main.hpp"
+#include "dtypes.hpp"
 #include <cmath>
 #include <vector>
 
@@ -44,7 +44,7 @@ Vec2 Vec2::normalise() const {
 
 //######################################################
 // Entity
-Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity) :
+Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_capacity, Net model) :
 	x(x),
 	y(y),
 	size(size),
@@ -52,8 +52,9 @@ Entity::Entity(int x, int y, int size, float fov, float max_accel, float energy_
 	max_accel(max_accel),
 	energy_capacity(energy_capacity),
 	velocity(0,0),
-	acceleration(0,0)
- {}
+	acceleration(0,0),
+	model(model)
+{}
 
 
 // default constructor for testing
@@ -65,7 +66,8 @@ Entity::Entity() :
 	max_accel(20),
 	energy_capacity(200),
 	velocity(0,0),
-	acceleration(0,0)
+	acceleration(0,0),
+	model(Net())
 {}
 
 Entity::~Entity() {}
@@ -79,6 +81,11 @@ void Entity::update_velocity() {
 	mag -= drag;
 	Vec2 dir = velocity.normalise();
 	velocity = dir*mag;
+}
+
+Vec2 Entity::query_model() {
+	std::vector<float> result = model.make_prediction({(float)x, (float)y, (float)size, max_accel, energy_capacity, velocity.x, velocity.y});
+	return Vec2(result[0], result[1]);
 }
 
 
@@ -97,10 +104,9 @@ void EntityMap::do_tick() {
 		// TODO: Entity::update_raycasts()
 	
 	// 3. Run ML Nets (generate "acceleration")
-		// TODO: install libtorch
-		// TODO: copy model.py into cpp
-		// TODO: Vec2 Entity::call_model()
-			// 
+		// DONE: install libtorch
+		// DONE: copy model.py into cpp
+		// DONE: Vec2 Entity::query_model()
 	
 	// 4. Update values from Nets
 		// a. update velocity based on acceleration
